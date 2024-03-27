@@ -6,13 +6,13 @@
 #    By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/24 15:53:19 by sbrito            #+#    #+#              #
-#    Updated: 2024/03/26 19:26:24 by sbrito           ###   ########.fr        #
+#    Updated: 2024/03/27 19:51:17 by sbrito           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	so_long.c 
+SRCS	=	so_long.c get_next_line.c get_next_line_utils.c
 
-OBJC	=	so_long.o
+OBJC	=	so_long.o get_next_line.o get_next_line_utils.o
 
 INC		=	so_long.h
 
