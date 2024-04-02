@@ -6,13 +6,15 @@
 #    By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/24 15:53:19 by sbrito            #+#    #+#              #
-#    Updated: 2024/03/27 19:51:17 by sbrito           ###   ########.fr        #
+#    Updated: 2024/04/02 16:46:36 by sbrito           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	so_long.c get_next_line.c get_next_line_utils.c
+SRCS	=	so_long.c get_next_line.c get_next_line_utils.c \
+			map_utils.c
 
-OBJC	=	so_long.o get_next_line.o get_next_line_utils.o
+OBJC	=	so_long.o get_next_line.o get_next_line_utils.o \
+			map_utils.o
 
 INC		=	so_long.h
 
@@ -24,7 +26,7 @@ all: $(NAME)
 
 $(NAME): $(OBJC)
 	make -C minilibx-linux
-	cc $(FLAGS) $(OBJC) -o $(NAME) -Lminilibx-linux -lmlx_Linux -lXext -lX11
+	cc $(FLAGS) $(OBJC) -o $(NAME) -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 
 $(OBJC): $(SRCS)
 	cc $(FLAGS) $(SRCS) -c

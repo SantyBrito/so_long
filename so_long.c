@@ -6,93 +6,67 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:37:07 by sbrito            #+#    #+#             */
-/*   Updated: 2024/03/27 20:51:01 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/02 17:17:38 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	create_map(t_mlx_data *data)
+void	my_mlx_pixel_put(t_mlx_data *data, int x, int y, int color)
 {
-	int		fd;
-	char	*line;
-	
-	data->y_tiles = 0;
-	fd = open("maps/map1.ber", O_RDONLY);
-	if (fd < 0)
-	{
-		write(1, "Error\n", 6);
-		exit(1);
-	}
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break;
-		if (!data->x_tiles)
-			data->x_tiles = ft_strlen(line);
-		free(line);
-		data->y_tiles++;
-	}
-}
+	char	*dst;
 
-void	y_tiles_num(t_mlx_data *data)
-{
-	int		fd;
-	char	*line;
-	
-	data->y_tiles = 0;
-	fd = open("maps/map1.ber", O_RDONLY);
-	if (fd < 0)
-	{
-		write(1, "Error\n", 6);
-		exit(1);
-	}
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break;
-		if (!data->x_tiles)
-			data->x_tiles = ft_strlen(line);
-		free(line);
-		data->y_tiles++;
-	}
-}
-
-int	handle_input(int keycode, t_mlx_data *data)
-{
-	if (XK_Escape == keycode)
-	{
-		mlx_destroy_window(data->connection, data->window);
-		mlx_destroy_display(data->connection);
-		free(data->connection);
-		exit(1);
-	}
-	return (0);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 int	main(void)
 {
 	t_mlx_data	data;
+	double		dist;
+	int			color;
 
-	data.connection = mlx_init();
-	if (NULL == data.connection)
+	data.mlx = mlx_init();
+	if (NULL == data.mlx)
 		return (MLX_ERROR);
-	data.window = mlx_new_window(data.connection, \
+	data.win = mlx_new_window(data.mlx, \
 								WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
-	if (NULL == data.window)
+	if (NULL == data.win)
 	{
-		mlx_destroy_display(data.connection);
-		free(data.connection);
+		mlx_destroy_display(data.mlx);
+		free(data.mlx);
 		return (MLX_ERROR);
 	}
+	//data.img = mlx_new_image(data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data.img = mlx_xpm_file_to_image(data.mlx,"img/p.xpm", &data.map_width, &data.map_height);
+	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
+	while (data.y < WINDOW_HEIGHT) {
+        data.x = 0;
+        while (data.x < WINDOW_WIDTH) {
+            // Calculate distance to center
+            dist = sqrt((data.x - WINDOW_WIDTH/2) * (data.x - WINDOW_WIDTH/2) + (data.y - WINDOW_HEIGHT/2) * (data.y - WINDOW_HEIGHT/2));
+			// Normalize distance to a range between 0 and 1
+			double normalized_dist = dist / (sqrt(WINDOW_WIDTH*WINDOW_WIDTH + WINDOW_HEIGHT*WINDOW_HEIGHT) / 2);
+
+			// Map normalized distance to rainbow colors (red to violet)
+			color = (int)(normalized_dist * 255);
+
+            // Set pixel color
+            my_mlx_pixel_put(&data, data.x, data.y, (255 << 24) | (255 - color) | (color << 16));
+
+            data.x++;
+        }
+        data.y++;
+    }
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	create_map(&data);
 	y_tiles_num(&data);
-	mlx_key_hook(data.window, handle_input, &data);
-	mlx_loop(data.connection);
-	mlx_destroy_window(data.connection, data.window);
-	mlx_destroy_display(data.connection);
-	free(data.connection);
+	mlx_key_hook(data.win, handle_input, &data);
+	mlx_loop(data.mlx);
+	mlx_destroy_image(data.mlx, data.img);
+	mlx_destroy_window(data.mlx, data.win);
+	mlx_destroy_display(data.mlx);
+	free(data.mlx);
 }
 
 //65361 <, 65362 ^, 65363 >, 65364 v, 65307 Esc
