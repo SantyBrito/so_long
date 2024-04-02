@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/02 17:18:22 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:07:49 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*edited_strjoin(char *s1, char *s2);
 void	create_map(t_mlx_data *data);
-void	y_tiles_num(t_mlx_data *data);
+void	set_tile_num(t_mlx_data *data);
 int		handle_input(int keycode, t_mlx_data *data);
 
 #endif

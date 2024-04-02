@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:08:58 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/02 16:08:32 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:01:45 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,22 @@
 
 void	create_map(t_mlx_data *data)
 {
+	int 	y;
 	int		fd;
 	char	*line;
 	
-	data->y_tiles = 0;
+	data->map = malloc(sizeof(char *) * data->y_tiles);
 	fd = open("maps/map1.ber", O_RDONLY);
-	if (fd < 0)
-	{
-		write(1, "Error\n", 6);
-		exit(1);
-	}
-	while (1)
+	y = 0;
+	while (y < data->y_tiles)
 	{
 		line = get_next_line(fd);
-		if (!line)
-			break;
-		if (!data->x_tiles)
-			data->x_tiles = ft_strlen(line);
-		free(line);
-		data->y_tiles++;
+		data->map[y] = line;
+		y++;
 	}
 }
 
-void	y_tiles_num(t_mlx_data *data)
+void	set_tile_num(t_mlx_data *data)
 {
 	int		fd;
 	char	*line;

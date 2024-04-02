@@ -6,15 +6,15 @@
 #    By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/24 15:53:19 by sbrito            #+#    #+#              #
-#    Updated: 2024/04/02 16:46:36 by sbrito           ###   ########.fr        #
+#    Updated: 2024/04/02 19:09:04 by sbrito           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	so_long.c get_next_line.c get_next_line_utils.c \
-			map_utils.c
+			map_utils.c rendering.c
 
 OBJC	=	so_long.o get_next_line.o get_next_line_utils.o \
-			map_utils.o
+			map_utils.o rendering.o
 
 INC		=	so_long.h
 
