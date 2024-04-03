@@ -6,18 +6,21 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:37:07 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/02 19:06:14 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:14:19 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(void)
+int	main(int argc,char **argv)
 {
 	t_mlx_data	data;
-	double		dist;
-	int			color;
 
+	if (argc != 2)
+	{
+		write(2, "Error\nInvalid number of arguments\n", 35);
+		return (1);
+	}
 	data.mlx = mlx_init();
 	if (NULL == data.mlx)
 		return (MLX_ERROR);
@@ -31,8 +34,9 @@ int	main(void)
 	}
 	data.img = mlx_xpm_file_to_image(data.mlx,"img/p.xpm", &data.map_width, &data.map_height);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-	set_tile_num(&data);
-	create_map(&data);
+	set_tile_num(&data, argv[1]);
+	create_map(&data, argv[1]);
+	map_check(&data);
 	mlx_key_hook(data.win, handle_input, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.img);
