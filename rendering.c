@@ -6,9 +6,13 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:03:51 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/02 19:04:00 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/08 18:03:56 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// void    rendering(t_mlx_data *data)
+// {
+    
+// }

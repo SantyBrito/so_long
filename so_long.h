@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/03 19:37:21 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/08 18:03:18 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int		so_long_strlen(const char *str);
 void	map_check(t_mlx_data *data);
 void	collect_check(t_mlx_data *data);
 void	dup_check(t_mlx_data *data);
+void	draw_map(t_mlx_data *data);
 
 #endif

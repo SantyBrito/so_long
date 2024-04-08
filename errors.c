@@ -6,26 +6,26 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:05:27 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/03 19:45:45 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/08 15:29:19 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 void	ft_error(t_mlx_data *data)
-{    
-		if (data->map)
-		{
-			free(data->map);
-		}
-        if (data->mlx)
-        {
-    		mlx_destroy_image(data->mlx, data->img);
-            mlx_destroy_window(data->mlx, data->win);
-			mlx_destroy_display(data->mlx);
-    		free(data->mlx);
-        }
-		exit(1);
+{
+	if (data->map)
+		free(data->map);
+	if (data->mlx)
+	{
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	exit(1);
 }
+
 int	so_long_strlen(const char *str)
 {
 	int	i;
@@ -39,7 +39,7 @@ int	so_long_strlen(const char *str)
 }
 
 void	map_check(t_mlx_data *data)
-{    
+{
 	int	x;
 	int	y;
 
@@ -88,26 +88,26 @@ void	collect_check(t_mlx_data *data)
 
 void	dup_check(t_mlx_data *data)
 {
-	int	count_P;
-	int	count_E;
+	int	count_p;
+	int	count_e;
 
 	data->y = 0;
-	count_P = 0;
-	count_E = 0;
+	count_p = 0;
+	count_e = 0;
 	while (data->y < data->y_tiles)
 	{
 		data->x = 0;
 		while (data->x < data->x_tiles)
 		{
 			if (data->map[data->y][data->x] == 'P')
-				count_P++;
+				count_p++;
 			if (data->map[data->y][data->x] == 'E')
-				count_E++;
+				count_e++;
 			data->x++;
 		}
 		data->y++;
 	}
-	if (count_P != 1 || count_E != 1)
+	if (count_p != 1 || count_e != 1)
 	{
 		write(2, "Error\nNo player or exit / too many players or exits\n", 52);
 		ft_error(data);
