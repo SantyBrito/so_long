@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/08 18:03:18 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/09 14:43:44 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_mlx_data
 	void	*mlx;
 	void	*win;
 	void	*img;
+	int		keycode;
 	int		player_x;
 	int		player_y;
 	int		map_width;
@@ -70,5 +71,7 @@ void	map_check(t_mlx_data *data);
 void	collect_check(t_mlx_data *data);
 void	dup_check(t_mlx_data *data);
 void	draw_map(t_mlx_data *data);
+void    ft_destroy(t_mlx_data *data);
+int		ft_count_collectable(t_mlx_data *data);
 
 #endif

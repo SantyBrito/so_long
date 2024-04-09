@@ -6,7 +6,7 @@
 #    By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/24 15:53:19 by sbrito            #+#    #+#              #
-#    Updated: 2024/04/03 16:49:34 by sbrito           ###   ########.fr        #
+#    Updated: 2024/04/09 14:31:30 by sbrito           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INC		=	so_long.h
 
 NAME	=	so_long
 
-FLAGS	=	-Wall -Wextra -Werror 
+FLAGS	=	-Wall -Wextra -Werror -g
 
 all: $(NAME)
 

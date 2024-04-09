@@ -6,13 +6,75 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:03:51 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/08 18:03:56 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/09 15:21:36 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// void    rendering(t_mlx_data *data)
-// {
-    
-// }
+void	draw_map(t_mlx_data *data)
+{
+	char	tile_num;
+	int 	c;
+
+	c = ft_count_collectable(data);
+	data->y = 0;
+	while (data->y < data->y_tiles)
+	{
+		data->x = 0;
+		while (data->x < data->x_tiles)
+		{
+			tile_num = data->map[data->y][data->x];
+			if (tile_num == '1')
+			{
+				data->img = mlx_xpm_file_to_image(data->mlx, "img/wall.xpm", &data->map_width, &data->map_height);
+				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
+			}
+			else if (tile_num == '0')
+			{
+				data->img = mlx_xpm_file_to_image(data->mlx, "img/grass.xpm", &data->map_width, &data->map_height);
+				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
+			}
+			else if (tile_num == 'P')
+			{
+                if(data->keycode == KEY_ARROW_RIGHT)
+				    data->img = mlx_xpm_file_to_image(data->mlx, "img/player_right.xpm", &data->map_width, &data->map_height);
+                else if(data->keycode == KEY_ARROW_LEFT)
+                    data->img = mlx_xpm_file_to_image(data->mlx, "img/player_left.xpm", &data->map_width, &data->map_height);
+                else if(data->keycode == KEY_ARROW_UP)
+                    data->img = mlx_xpm_file_to_image(data->mlx, "img/player_up.xpm", &data->map_width, &data->map_height);
+                else
+                    data->img = mlx_xpm_file_to_image(data->mlx, "img/player_down.xpm", &data->map_width, &data->map_height);
+				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
+				data->player_x = data->x;
+				data->player_y = data->y;
+			}
+			else if (tile_num == 'E')
+			{
+				if(c != 0)
+					data->img = mlx_xpm_file_to_image(data->mlx, "img/door_closed.xpm", &data->map_width, &data->map_height);
+				else
+					data->img = mlx_xpm_file_to_image(data->mlx, "img/door_open.xpm", &data->map_width, &data->map_height);
+				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
+			}
+			else if (tile_num == 'C')
+			{
+				data->img = mlx_xpm_file_to_image(data->mlx, "img/collectable.xpm", &data->map_width, &data->map_height);
+				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
+			}
+			data->x++;
+		}
+		data->y++;
+	}
+}
+
+void	ft_destroy(t_mlx_data *data)
+{
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	if (data->map)
+		free(data->map);
+	exit(0);
+}

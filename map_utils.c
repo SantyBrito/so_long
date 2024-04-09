@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:08:58 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/08 19:46:16 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/09 15:16:37 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,70 +58,65 @@ void	create_map(t_mlx_data *data, char *argv)
 		data->map[y] = line;
 		y++;
 	}
+	map_check(data);
 }
 
-void	draw_map(t_mlx_data *data)
+void ft_movement(int keycode, t_mlx_data *data)
 {
-	char	tile_num;
-
-	printf("x%d\n", data->x_tiles);
-	printf("y%d\n", data->y_tiles);
-	data->y = 0;
-	while (data->y < data->y_tiles)
+	if(keycode == KEY_ARROW_RIGHT && data->map[data->player_y][data->player_x + 1] != '1')
 	{
-		data->x = 0;
-		while (data->x < data->x_tiles)
+		if(data->map[data->player_y][data->player_x + 1] == 'E')
 		{
-			tile_num = data->map[data->y][data->x];
-			if (tile_num == '1')
-			{
-				data->img = mlx_xpm_file_to_image(data->mlx, "img/wall.xpm", &data->map_width, &data->map_height);
-				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
-			}
-			else if (tile_num == '0')
-			{
-				data->img = mlx_xpm_file_to_image(data->mlx, "img/grass.xpm", &data->map_width, &data->map_height);
-				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
-			}
-			else if (tile_num == 'P')
-			{
-				data->img = mlx_xpm_file_to_image(data->mlx, "img/player_down.xpm", &data->map_width, &data->map_height);
-				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
-				data->player_x = data->x;
-				data->player_y = data->y;
-			}
-			else if (tile_num == 'E')
-			{
-				data->img = mlx_xpm_file_to_image(data->mlx, "img/door_closed.xpm", &data->map_width, &data->map_height);
-				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
-			}
-			else if (tile_num == 'C')
-			{
-				data->img = mlx_xpm_file_to_image(data->mlx, "img/collectable.xpm", &data->map_width, &data->map_height);
-				mlx_put_image_to_window(data->mlx, data->win, data->img, data->x * 50, data->y * 50);
-			}
-			data->x++;
+			if(ft_count_collectable(data) == 0)
+				ft_destroy(data);
+			return ;
 		}
-		data->y++;
+		data->map[data->player_y][data->player_x + 1] = 'P';
+		data->map[data->player_y][data->player_x] = '0';
+	}
+	if(keycode == KEY_ARROW_LEFT && data->map[data->player_y][data->player_x - 1] != '1')
+	{
+		if(data->map[data->player_y][data->player_x - 1] == 'E')
+		{
+			if(ft_count_collectable(data) == 0)
+				ft_destroy(data);
+			return ;
+		}
+		data->map[data->player_y][data->player_x - 1] = 'P';
+		data->map[data->player_y][data->player_x] = '0';
+	}
+	if(keycode == KEY_ARROW_UP && data->map[data->player_y - 1][data->player_x] != '1')
+	{
+		if(data->map[data->player_y - 1][data->player_x] == 'E')
+		{
+			if(ft_count_collectable(data) == 0)
+				ft_destroy(data);
+			return ;
+		}
+		data->map[data->player_y - 1][data->player_x] = 'P';
+		data->map[data->player_y][data->player_x] = '0';
+	}
+	if(keycode == KEY_ARROW_DOWN && data->map[data->player_y + 1][data->player_x] != '1')
+	{
+		if(data->map[data->player_y + 1][data->player_x] == 'E')
+		{
+			if(ft_count_collectable(data) == 0)
+				ft_destroy(data);
+			return ;
+		}
+		data->map[data->player_y + 1][data->player_x] = 'P';
+		data->map[data->player_y][data->player_x] = '0';
 	}
 }
 
 int	handle_input(int keycode, t_mlx_data *data)
 {
+	data->keycode = keycode;
 	if (XK_Escape == keycode)
 	{
-		mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		exit(1);
+		ft_destroy(data);
 	}
-	if (keycode == KEY_ARROW_RIGHT)
-		data->player_x += 1;
-	else if (keycode == KEY_ARROW_LEFT)
-		data->player_x -= 1;
-	else if (keycode == KEY_ARROW_UP)
-		data->player_y -= 1;
-	else if (keycode == KEY_ARROW_DOWN)
-		data->player_y += 1;
+	ft_movement(keycode, data);
+	draw_map(data);
 	return (0);
 }

@@ -6,25 +6,11 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:05:27 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/08 15:29:19 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/09 15:16:46 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_error(t_mlx_data *data)
-{
-	if (data->map)
-		free(data->map);
-	if (data->mlx)
-	{
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	exit(1);
-}
 
 int	so_long_strlen(const char *str)
 {
@@ -60,6 +46,25 @@ void	map_check(t_mlx_data *data)
 		}
 		y++;
 	}
+}
+
+int ft_count_collectable(t_mlx_data *data)
+{
+	int count = 0;
+	int y = 0;
+	int x;
+	while(y < data->y_tiles)
+	{
+		x = 0;
+		while(x < data->x_tiles)
+		{
+			if(data->map[y][x] == 'C')
+				count++;
+			x++;
+		}
+		y++;
+	}
+	return (count);
 }
 
 void	collect_check(t_mlx_data *data)
