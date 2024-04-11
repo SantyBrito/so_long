@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:37:07 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/09 15:25:46 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/11 15:26:39 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data.mlx = mlx_init();
+	data.moves = 0;
 	if (NULL == data.mlx)
 		return (MLX_ERROR);
 	set_tile_num(&data, argv[1]);
@@ -49,8 +50,17 @@ void	ft_error(t_mlx_data *data)
 	exit(1);
 }
 
+int	so_long_strlen(const char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
 // LEFT TO DO:
-// check for error if the collectable and/or the door are not reachable
-// print the winning message
-// display the number of moves
 // fix leaks and norm

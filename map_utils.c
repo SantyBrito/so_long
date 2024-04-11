@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:08:58 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/09 15:16:37 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/11 13:47:40 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	create_map(t_mlx_data *data, char *argv)
 		data->map[y] = line;
 		y++;
 	}
+	data->map[y] = NULL;
 	map_check(data);
 }
 
@@ -73,6 +74,8 @@ void ft_movement(int keycode, t_mlx_data *data)
 		}
 		data->map[data->player_y][data->player_x + 1] = 'P';
 		data->map[data->player_y][data->player_x] = '0';
+		data->moves++;
+		printf("Moves: %d\n", data->moves);
 	}
 	if(keycode == KEY_ARROW_LEFT && data->map[data->player_y][data->player_x - 1] != '1')
 	{
@@ -84,6 +87,8 @@ void ft_movement(int keycode, t_mlx_data *data)
 		}
 		data->map[data->player_y][data->player_x - 1] = 'P';
 		data->map[data->player_y][data->player_x] = '0';
+		data->moves++;
+		printf("Moves: %d\n", data->moves);
 	}
 	if(keycode == KEY_ARROW_UP && data->map[data->player_y - 1][data->player_x] != '1')
 	{
@@ -95,6 +100,8 @@ void ft_movement(int keycode, t_mlx_data *data)
 		}
 		data->map[data->player_y - 1][data->player_x] = 'P';
 		data->map[data->player_y][data->player_x] = '0';
+		data->moves++;
+		printf("Moves: %d\n", data->moves);
 	}
 	if(keycode == KEY_ARROW_DOWN && data->map[data->player_y + 1][data->player_x] != '1')
 	{
@@ -106,17 +113,9 @@ void ft_movement(int keycode, t_mlx_data *data)
 		}
 		data->map[data->player_y + 1][data->player_x] = 'P';
 		data->map[data->player_y][data->player_x] = '0';
+		data->moves++;
+		printf("Moves: %d\n", data->moves);
 	}
 }
 
-int	handle_input(int keycode, t_mlx_data *data)
-{
-	data->keycode = keycode;
-	if (XK_Escape == keycode)
-	{
-		ft_destroy(data);
-	}
-	ft_movement(keycode, data);
-	draw_map(data);
-	return (0);
-}
+

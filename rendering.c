@@ -6,11 +6,13 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:03:51 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/09 15:21:36 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/11 13:54:16 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+//free xpm file to image and destroy put image to window
 
 void	draw_map(t_mlx_data *data)
 {
@@ -66,6 +68,18 @@ void	draw_map(t_mlx_data *data)
 		}
 		data->y++;
 	}
+}
+
+int	handle_input(int keycode, t_mlx_data *data)
+{
+	data->keycode = keycode;
+	if (XK_Escape == keycode)
+	{
+		ft_destroy(data);
+	}
+	ft_movement(keycode, data);
+	draw_map(data);
+	return (0);
 }
 
 void	ft_destroy(t_mlx_data *data)
