@@ -6,12 +6,13 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:05:27 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/11 13:50:59 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:03:03 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-int ft_count(char **map, char c);
+
+int		ft_count(char **map, char c);
 
 void	print_map(char **map)
 {
@@ -52,7 +53,7 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 	}
 }
 
-int ft_player_x(char **map)
+int	ft_player_x(char **map)
 {
 	int	x;
 	int	y;
@@ -72,7 +73,7 @@ int ft_player_x(char **map)
 	return (-1);
 }
 
-int ft_player_y(char **map)
+int	ft_player_y(char **map)
 {
 	int	x;
 	int	y;
@@ -92,7 +93,7 @@ int ft_player_y(char **map)
 	return (-1);
 }
 
-char **ft_copy_map(char **map)
+char	**ft_copy_map(char **map)
 {
 	char	**copy;
 	int		y;
@@ -130,25 +131,25 @@ void	ft_free_map(char **map)
 
 void	not_path(t_mlx_data *data)
 {
-	char	**copy_map;
-	int		x;
-	int		y;
-	int		width;
-	int		height;
-	char	to_fill[4] = {'0', 'C', 'E', 'P'};
+	int			x;
+	int			y;
+	int			width;
+	int			height;
+	static char	to_fill[4] = {'0', 'C', 'E', 'P'};
 
-	copy_map = ft_copy_map(data->map);
+	data->copy_map = ft_copy_map(data->map);
 	x = ft_player_x(data->map);
-	y =	ft_player_y(data->map);
+	y = ft_player_y(data->map);
 	width = data->x_tiles;
 	height = data->y_tiles;
-	fill(copy_map, (t_point){width, height}, (t_point){x, y}, to_fill);
-	if(ft_count(copy_map, 'E') != 0 || ft_count(copy_map, 'C') != 0)
+	fill(data->copy_map, (t_point){width, height}, (t_point){x, y}, to_fill);
+	if (ft_count(data->copy_map, 'E') != 0
+		|| ft_count(data->copy_map, 'C') != 0)
 	{
 		write(2, "Error\nNo path to collectibles or exit\n", 38);
 		ft_error(data);
 	}
-	ft_free_map(copy_map);
+	ft_free_map(data->copy_map);
 }
 
 void	map_check(t_mlx_data *data)
@@ -178,7 +179,7 @@ void	map_check(t_mlx_data *data)
 	not_path(data);
 }
 
-int ft_count(char **map, char c)
+int	ft_count(char **map, char c)
 {
 	int	count;
 	int	y;
@@ -273,16 +274,3 @@ void	dup_check(t_mlx_data *data)
 		ft_error(data);
 	}
 }
-
-// void	no_reach(t_mlx_data *copy, int current_x, int current_y)
-// {
-// 	if (copy->map[copy->player_y][copy->player_x] == 'F')
-// 		return ;
-// 	if (copy->map[copy->player_y][copy->player_x] != 'E'
-		// || copy->map[copy->player_y][copy->player_x] == '1')
-// 		copy->map[copy->player_y][copy->player_x] = 'F';
-// 	no_reach(copy, copy->player_x - 1, copy->player_y);
-// 	no_reach(copy, copy->player_x + 1, copy->player_y);
-// 	no_reach(copy, copy->player_x, copy->player_y - 1);
-// 	no_reach(copy, copy->player_x, copy->player_y + 1);
-// }

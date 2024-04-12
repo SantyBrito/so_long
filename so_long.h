@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/11 13:41:55 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:00:20 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -52,6 +53,7 @@ typedef struct s_mlx_data
 	int		map_width;
 	int		map_height;
 	char	**map;
+	char	**copy_map;
 	int		y_tiles;
 	int		x_tiles;
 	char	*addr;
@@ -81,5 +83,13 @@ void		dup_check(t_mlx_data *data);
 void		draw_map(t_mlx_data *data);
 void		ft_destroy(t_mlx_data *data);
 int			ft_count_collectable(t_mlx_data *data);
+int			ft_printf(const char *str, ...);
+int			funct_str(char *c);
+int			funct_ptr(unsigned long int n);
+int			funct_dec(int n);
+int			funct_unsigned_dec(unsigned int n);
+int			funct_hex(unsigned int n, int flag);
+void		ft_destroy_mlx(t_mlx_data *data);
+void		ft_free_map(char **map);
 
 #endif

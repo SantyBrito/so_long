@@ -6,15 +6,19 @@
 #    By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/24 15:53:19 by sbrito            #+#    #+#              #
-#    Updated: 2024/04/09 14:31:30 by sbrito           ###   ########.fr        #
+#    Updated: 2024/04/12 18:23:57 by sbrito           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	so_long.c get_next_line.c get_next_line_utils.c \
-			map_utils.c rendering.c errors.c
+SRCS	=	so_long.c map_utils.c rendering.c errors.c \
+			libft_tools/printf_funct.c \
+			libft_tools/ft_printf.c \
+			libft_tools/get_next_line.c \
+			libft_tools/get_next_line_utils.c \
 
 OBJC	=	so_long.o get_next_line.o get_next_line_utils.o \
-			map_utils.o rendering.o errors.o
+			map_utils.o rendering.o errors.o printf_funct.o \
+			ft_printf.o
 
 INC		=	so_long.h
 
@@ -41,6 +45,6 @@ norminette:
 	norminette $(SRCS) so_long.h
 
 valgrind:
-	valgrind --leak-check=full ./so_long
+	valgrind --leak-check=full ./so_long maps/big.ber
 
 re: fclean all
