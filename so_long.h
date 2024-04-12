@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/12 18:00:20 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/12 21:21:13 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char		*ft_strchr(const char *str, int c);
 char		*ft_strdup(const char *s);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*edited_strjoin(char *s1, char *s2);
+char		**ft_copy_map(char **map);
 void		create_map(t_mlx_data *data, char *argv);
 void		set_tile_num(t_mlx_data *data, char *argv);
 int			handle_input(int keycode, t_mlx_data *data);
@@ -84,12 +85,25 @@ void		draw_map(t_mlx_data *data);
 void		ft_destroy(t_mlx_data *data);
 int			ft_count_collectable(t_mlx_data *data);
 int			ft_printf(const char *str, ...);
+int			ft_count(char **map, char c);
 int			funct_str(char *c);
 int			funct_ptr(unsigned long int n);
 int			funct_dec(int n);
 int			funct_unsigned_dec(unsigned int n);
 int			funct_hex(unsigned int n, int flag);
-void		ft_destroy_mlx(t_mlx_data *data);
+int			ft_player_x(char **map);
+int			ft_player_y(char **map);
 void		ft_free_map(char **map);
+void		not_path(t_mlx_data *data);
+void		fill(char **tab, t_point size, t_point begin, char to_fill[]);
+void		move_right(t_mlx_data *data);
+void		move_left(t_mlx_data *data);
+void		move_up(t_mlx_data *data);
+void		move_down(t_mlx_data *data);
+void		ft_draw_wall(t_mlx_data *data);
+void		ft_draw_grass(t_mlx_data *data);
+void		ft_draw_player(t_mlx_data *data);
+void		ft_draw_exit(t_mlx_data *data, int c);
+void		ft_draw_collectable(t_mlx_data *data);
 
 #endif
