@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 19:03:51 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/12 21:18:57 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/13 17:27:08 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,45 @@ void	draw_map(t_mlx_data *data)
 		}
 		data->y++;
 	}
+}
+
+void	free_line(t_mlx_data *data)
+{
+	int i;
+	
+	i = 0;
+	while(i < data->y_tiles)
+		free(data->map[i++]);
+	exit(1);
+}
+
+void	check_ones(t_mlx_data *data)
+{
+    int	i;
+    int	j;
+
+    i = 0;
+    j = so_long_strlen(data->map[i]) - 1;
+    while (data->map[i])
+    {
+        if (data->map[i][0] != '1' || data->map[i][j] != '1')
+        {
+            ft_printf("Error\nInvalid map\n");
+            free_line(data);
+            ft_error(data);
+        }
+        i++;
+    }
+    j = 0;
+    int last_row = i - 1;
+    while (j <= so_long_strlen(data->map[0]) - 1)
+    {
+        if (data->map[0][j] != '1' || data->map[last_row][j] != '1')
+        {
+            ft_printf("Error\nInvalid map\n");
+            free_line(data);
+            ft_error(data);
+        }
+        j++;
+    }
 }

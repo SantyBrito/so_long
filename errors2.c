@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 19:25:25 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/12 19:52:39 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/13 17:29:56 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	not_path(t_mlx_data *data)
 		|| ft_count(data->copy_map, 'C') != 0)
 	{
 		write(2, "Error\nNo path to collectibles or exit\n", 38);
+		free_line(data);
 		ft_error(data);
 	}
 	ft_free_map(data->copy_map);

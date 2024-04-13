@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:54:54 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/12 21:21:13 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/13 17:21:29 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ void		ft_draw_grass(t_mlx_data *data);
 void		ft_draw_player(t_mlx_data *data);
 void		ft_draw_exit(t_mlx_data *data, int c);
 void		ft_draw_collectable(t_mlx_data *data);
+void		free_line(t_mlx_data *data);
+void		check_ones(t_mlx_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbrito <sbrito@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:05:27 by sbrito            #+#    #+#             */
-/*   Updated: 2024/04/12 19:42:23 by sbrito           ###   ########.fr       */
+/*   Updated: 2024/04/13 17:12:08 by sbrito           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ void	map_check(t_mlx_data *data)
 				&& data->map[y][x] != 'C')
 			{
 				write(2, "Error\nInvalid map\n", 19);
+				free_line(data);
 				ft_error(data);
 			}
 			collect_check(data);
 			dup_check(data);
+			check_ones(data);
 			x++;
 		}
 		y++;
@@ -108,7 +110,9 @@ void	collect_check(t_mlx_data *data)
 	if (count == 0)
 	{
 		write(2, "Error\nNo collectibles\n", 23);
+		free_line(data);
 		ft_error(data);
+		exit(1);
 	}
 }
 
@@ -136,6 +140,7 @@ void	dup_check(t_mlx_data *data)
 	if (count_p != 1 || count_e != 1)
 	{
 		write(2, "Error\nNo player or exit / too many players or exits\n", 52);
+		free_line(data);
 		ft_error(data);
 	}
 }
